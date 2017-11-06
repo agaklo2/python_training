@@ -1,5 +1,3 @@
-
-
 class SessionHelper:
 
     def __init__(self, app):
@@ -24,7 +22,6 @@ class SessionHelper:
         wd.find_element_by_name("pass").click()
         wd.find_element_by_name("pass").send_keys("\\undefined")
 
-
     def login2(self, username, password):
         wd = self.app.wd
         self.app.open_home_card()
@@ -35,7 +32,6 @@ class SessionHelper:
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-
 
     def logout2(self):
         wd = self.app.wd
