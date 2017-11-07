@@ -23,7 +23,6 @@ class Application:
         wd.find_element_by_css_selector("html").click()
 
 
-
     def destroy(self):
         self.wd.quit()
 

@@ -5,6 +5,7 @@ class ContactHelper:
 
     def add_new_contact(self, contact):
         wd = self.app.wd
+        self.app.open_home_card()
         # come back to home card
         wd.find_element_by_link_text("home").click()
         # click add button
@@ -20,3 +21,19 @@ class ContactHelper:
         # submit
         wd.find_element_by_name("theform").click()
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.return_to_home_page()
+
+    def delete_first_contact(self):
+        wd = self.app.wd
+        self.app.open_home_card()
+        # select first contact
+        wd.find_element_by_name("selected[]").click()
+        # submit deletion
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        # confirm
+        wd.switch_to_alert().accept()
+        self.return_to_home_page()
+
+    def return_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
