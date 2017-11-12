@@ -1,5 +1,7 @@
+from model.contact import Contact
+
 
 def test_delete_first_contact(app):
-    app.session.login2(username="admin", password="secret")
+    if app.contact.count() == 0:
+        app.contact.add_new_contact(Contact(name="agata", surname="lala"))
     app.contact.delete_first_contact()
-    app.session.logout2()

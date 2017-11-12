@@ -1,5 +1,7 @@
+from model.contact import Contact
+
 
 def test_modify_first_contact(app):
-    app.session.login2(username="admin", password="secret")
-    app.contact.modify_first_contact()
-    app.session.logout2()
+    if app.contact.count() == 0:
+        app.contact.add_new_contact(Contact(name="Agata", surname="K."))
+    app.contact.modify_first_contact(Contact(name="Modified name", surname="Modified surname"))
