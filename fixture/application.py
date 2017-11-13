@@ -8,7 +8,6 @@ class Application:
 
     def __init__(self):
         self.wd = WebDriver(capabilities={"marionette": False})
-        self.wd.implicitly_wait(5)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
@@ -20,9 +19,10 @@ class Application:
         except:
             return False
 
-    def open_home_page(self):
+    def open_groups_page(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/group.php")
+        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
+            wd.get("http://localhost/addressbook/group.php")
 
     def open_home_card(self):
         wd = self.wd
