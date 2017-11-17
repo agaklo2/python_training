@@ -26,8 +26,9 @@ class Application:
 
     def open_home_card(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/")
-        wd.find_element_by_css_selector("html").click()
+        if not (wd.current_url.endswith("/adressbook/") or (wd.current_url.endswith("/addressbook/index.php"))):
+            wd.get("http://localhost/addressbook/")
+            wd.find_element_by_css_selector("html").click()
 
 
     def destroy(self):
