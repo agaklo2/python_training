@@ -61,20 +61,10 @@ class ContactHelper:
         wd = self.app.wd
         self.app.open_home_card()
         contacts = []
-
         for element in wd.find_elements_by_name("entry"):
+           # cells = []
+            cells = element.find_elements_by_tag_name("td")
+           # cells.append(cells)
 
-            cells = []
-
-            for cell in element.find_elements_by_tag_name("td"):
-                cells.append(cell)
-
-            contacts.append(Contact(name=cells[2], surname=cells[1]))
-
-
-
-
-
-
-            #contacts.append(Contact(name=text, surname=text, cells=cells))
+            contacts.append(Contact(cells[2].text, cells[1].text))
         return contacts
