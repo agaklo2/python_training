@@ -4,14 +4,12 @@ from model.contact import Contact
 
 def test_add_contact(app):
     old_contacts = app.contact.get_contact_list()
-    contact = Contact(firstname="Agata", lastname="Kłopotowska")
-    app.contact.add_new_contact(contact)
+    contact2 = Contact(firstname="Agata", lastname="Kłopotowska")
+    app.contact.add_new_contact(contact2)
     assert len(old_contacts) + 1 == app.contact.count()
     new_contacts = app.contact.get_contact_list()
-    old_contacts.append(contact)
+    old_contacts.append(contact2)
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
-    print("lalalala")
-
 
 #def test_add_empty_contact(app):
 #    old_contacts = app.contact.get_contact_list()
