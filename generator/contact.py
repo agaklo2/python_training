@@ -1,4 +1,4 @@
-from model.group import Group
+from model.contact import Contact
 import random
 import string
 import os.path
@@ -7,28 +7,27 @@ import getopt
 import sys
 
 try:
-    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
+    opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of contacts", "file"])
 except getopt.GetoptError as err:
     getopt.usage()
     sys.exit(2)
 
 n = 5
-f = "data/groups.json"
+f = "data/contacts.json"
 
 for o, a in opts:
     if o == "-n":
         n = int(a)
     elif o == "-f":
         f = a
-#string.punctuation
+
 
 def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits + " "*2
-    return prefix + "".join([random.choice(symbols)for i in range(random.randrange(maxlen))])
+    return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-
-testdata = [Group(name="", header="", footer="")] + [
-    Group(name=random_string("name", 5), header=random_string("header", 10), footer=random_string("footer", 10))
+testdata = [Contact(firstname="", lastname="", address="")] + [
+    Contact(firstname=random_string("firstname", 8), lastname=random_string("lastname", 12), address=random_string("address", 12))
     for i in range(n)
 ]
 
