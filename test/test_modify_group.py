@@ -13,6 +13,7 @@ def test_modify_some_group_name(app, db):
     assert group == new_group
 
 
+
 #def test_modify_first_group_header(app):
 #    old_groups = app.group.get_group_list()
 #    app.group.modify_first_group(Group(header="New header"))

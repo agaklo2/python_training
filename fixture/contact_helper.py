@@ -37,6 +37,18 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+
+    def delete_contact_by_id(self, id):
+        wd = self.app.wd
+        self.app.open_home_card()
+        self.select_contact_by_id(id)
+        # submit deletion
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/div[2]/input").click()
+        # confirm
+        wd.switch_to_alert().accept()
+        self.return_to_home_page()
+        self.contact_cache = None
+
     def select_first_contact(self):
         wd = self.app.wd
         wd.find_element_by_name("selected[]").click()
@@ -44,6 +56,11 @@ class ContactHelper:
     def select_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+
 
     def modify_first_contact(self):
         wd = self.app.wd
@@ -66,10 +83,30 @@ class ContactHelper:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, id, contact):
+        wd = self.app.wd
+        self.app.open_home_card()
+        self.choose_editing_contact_by_id(id)
+        # modify contact
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        wd.find_element_by_css_selector("body").click()
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        # submit modification
+        wd.find_element_by_xpath("//div[@id='content']/form[1]/input[22]").click()
+        self.return_to_home_page()
+        self.contact_cache = None
+
     def choose_editing_contact_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr/td[8]/a/img")[index].click()
 
+    def choose_editing_contact_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("a[href*='edit.php?id=%s']" % id).click()
 
     def return_to_home_page(self):
         wd = self.app.wd

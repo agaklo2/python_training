@@ -1,6 +1,6 @@
 import mysql.connector
 from model.group import Group
-#from model.contact import Contact
+from model.contact import Contact
 
 
 class DbFixture:
@@ -26,7 +26,6 @@ class DbFixture:
         return list
 
     def get_group_by_id(self, group_id):
-        #list = []
         cursor = self.connection.cursor()
         try:
             cursor.execute("SELECT group_id, group_name, group_header, group_footer FROM `group_list` WHERE `group_id` ="+group_id)
@@ -38,18 +37,28 @@ class DbFixture:
         return selected_group
 
 
-#    def get_contact_list(self):
-#        list = []
-#        cursor = self.connection.cursor()
-#        try:
-#            cursor.execute("select id, firstname, lastname, address from addressbook")
-#            for row in cursor:
-#                (id, firstname, lastname, address) = row
-#                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname, address=address))
-#        finally:
-#            cursor.close()
-#        return list
+    def get_contact_list(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id, firstname, lastname from addressbook where deprecated='0000-00-00 00:00:00'")
+            for row in cursor:
+                (id, firstname, lastname) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+        finally:
+            cursor.close()
+        return list
 
+    def get_contact_by_id(self, contact_id):
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("SELECT id, firstname, lastname from addressbook WHERE `id` ="+contact_id)
+            for row in cursor:
+                (id, firstname, lastname) = row
+                selected_contact = Contact(id=str(id), firstname=firstname, lastname=lastname)
+        finally:
+            cursor.close()
+        return selected_contact
 
 
     def destroy(self):
